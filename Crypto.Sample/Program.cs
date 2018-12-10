@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Crypto.Sample.Utilities;
+using static System.Console;
 
 namespace Crypto.Sample
 {
@@ -6,7 +7,21 @@ namespace Crypto.Sample
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            ICryptographer cryptographer = new Cryptographer();
+            var rawString = "Hello World";
+
+            var salt = cryptographer.CreateSalt();
+            var encryptedString = cryptographer.Encrypt(rawString, salt);
+
+            WriteLine($"Encrypted String - {encryptedString}");
+            WriteLine();
+
+            var decryptedString = cryptographer.Decrypt(encryptedString, salt);
+            WriteLine($"Decrypted String - {decryptedString}");
+            WriteLine();
+
+
+            ReadLine();
         }
     }
 }
